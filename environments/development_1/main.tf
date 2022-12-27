@@ -1,4 +1,5 @@
 
+// Provider
 terraform {
   required_providers {
     aws = {
@@ -16,17 +17,18 @@ module "deployment" {
 
 }
 
+// Manifest
 locals {
 
   environments = {
     "dev" : {
-      "region" : "test"
+      "region" : "us-east-1"
     },
     "test" : {
-      "region" : "test"
+      "region" : "us-east-1"
     },
     "prod" : {
-      "region" : "test"
+      "region" : "us-east-1"
     }
   }
 
