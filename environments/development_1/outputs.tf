@@ -1,10 +1,10 @@
 
-output "manifest" {
-  description = "GCP Projects Manifest."
-  value       = local.projects_manifest
+output "environments" {
+  description = "Environment Manifest."
+  value       = local.environments
 }
 
 output "deployment" {
-  description = "GCP Deployment."
+  description = "AWS Deployment."
   value       = module.deployment
 }

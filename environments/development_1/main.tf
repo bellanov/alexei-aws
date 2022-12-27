@@ -2,36 +2,32 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "4.48.0"
     }
   }
-}
-
-provider "aws" {
-  region = var.region
 }
 
 // Deployment
 module "deployment" {
   source   = "../../modules/tf_deployment"
   for_each = local.environments
-
+  region = each.value.region
 
 }
 
 locals {
-  display_name           = "Development_1"
-  
+
   environments = {
     "dev" : {
-      "region": "test"
+      "region" : "test"
     },
     "test" : {
-      "region": "test"
+      "region" : "test"
     },
     "prod" : {
-      "region": "test"
+      "region" : "test"
     }
   }
+
 }
