@@ -1,21 +1,21 @@
-// Bellanov L.L.C
 
-resource "random_string" "env_suffix" {
-  length  = 4
-  upper   = false
-  special = false
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "4.48.0"
+    }
+  }
 }
 
-// Billing Account ($$$)
-data "google_billing_account" "acct" {
-  display_name = var.billing_account
-  open         = true
+provider "aws" {
+  region = var.region
 }
 
 // Deployment
 module "deployment" {
   source   = "../../modules/tf_deployment"
-  for_each = local.projects_manifest
+  for_each = local.environments
 
 
 }
