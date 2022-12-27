@@ -12,10 +12,10 @@ Information about *design patterns* prevalent in the architecture.
 
 #### Example
 
-In the example below, the **Terraform** command is executed with the privileges granted to the ***development_1*** profile.
+In the example below, the **Terraform** command is executed with the privileges granted to the ***developer*** role.
 
 ```sh
-aws-vault exec development_1 -- terraform plan -out example.tfplan
+aws-vault exec developer -- terraform plan -out example.tfplan
 
 ```
 
