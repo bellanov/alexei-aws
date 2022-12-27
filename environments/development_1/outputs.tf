@@ -4,7 +4,7 @@ output "environments" {
   value       = local.environments
 }
 
-output "deployment" {
-  description = "AWS Deployment."
+output "deployments" {
+  description = "Deployments."
   value       = module.deployment
 }

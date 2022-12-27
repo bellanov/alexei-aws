@@ -19,7 +19,6 @@ module "deployment" {
 
 // Manifest
 locals {
-
   environments = {
     "dev" : {
       "region" : "us-east-1"
