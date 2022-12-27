@@ -10,6 +10,15 @@ Information about *design patterns* prevalent in the architecture.
 
 **aws-vault** is a CLI tool that is used to effectively manage AWS credentials. This will be used to properly assign and deliver permissions appropriately to *developers*, *testers*, etc.
 
+#### Example
+
+In the example below, the **Terraform** command is executed with the privileges granted to the ***developer*** role.
+
+```sh
+aws-vault exec developer -- terraform plan -out example.tfplan
+
+```
+
 ### Semantic Versioning (X.Y.Z)
 
 Products should aptly be versioned so changes are properly tracked as they traverse development *environments*.
