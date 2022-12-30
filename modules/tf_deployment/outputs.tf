@@ -1,5 +1,5 @@
 
-output "region" {
-  value       = var.region
-  description = "Region infrastructure will be deployed."
+output "regions" {
+  value       = var.regions
+  description = "Region(s) infrastructure will be deployed."
 }

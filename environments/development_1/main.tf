@@ -13,7 +13,7 @@ terraform {
 module "deployment" {
   source   = "../../modules/tf_deployment"
   for_each = local.environments
-  region = each.value.region
+  regions = each.value.regions
 
 }
 
@@ -21,13 +21,25 @@ module "deployment" {
 locals {
   environments = {
     "dev" : {
-      "region" : "us-east-1"
+      "regions" : {
+        "us-east-1": {},
+        "us-west-1": {},
+        "us-central-1": {}
+      }
     },
     "test" : {
-      "region" : "us-east-1"
+      "regions" : {
+        "us-east-1": {},
+        "us-west-1": {},
+        "us-central-1": {}
+      }
     },
     "prod" : {
-      "region" : "us-east-1"
+      "regions" : {
+        "us-east-1": {},
+        "us-west-1": {},
+        "us-central-1": {}
+      }
     }
   }
 
