@@ -1,6 +1,19 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.48.0"
+    }
+  }
+}
 
+provider "aws" {
+  region = "us-west-2"
+}
+
+#====================================
 module "network" {
-  source = "..//network"
+  source = "../../modules/network"
 
 
   availability_zones = var.availability_zones
@@ -10,7 +23,7 @@ module "network" {
 #====================================
 
 module "security" {
-  source = "..//security"
+  source = "../../modules/security"
 
   vpc_id         = module.network.vpc_id
   workstation_ip = var.workstation_ip
@@ -23,7 +36,7 @@ module "security" {
 #====================================
 
 module "bastion" {
-  source = "..//bastion"
+  source = "../../modules/bastion"
 
   instance_type = var.bastion_instance_type
   key_name      = var.key_name
@@ -39,7 +52,7 @@ module "bastion" {
 #====================================
 
 module "storage" {
-  source = "..//storage"
+  source = "../../modules/storage"
 
   instance_type = var.db_instance_type
   key_name      = var.key_name
@@ -55,7 +68,7 @@ module "storage" {
 #====================================
 
 module "application" {
-  source = "..//application"
+  source = "../../modules/application"
 
   instance_type   = var.app_instance_type
   key_name        = var.key_name
@@ -72,4 +85,3 @@ module "application" {
     module.storage
   ]
 }
-
