@@ -1,52 +1,28 @@
-# Alexei-AWS
+# alexei-aws
 
-This project holds the ***Terraform*** that manages the creation of **Alexei**, a DevOps management tool.
+Alexei *Amazon Web Services* port. Alexei is an attempt to simplify DevOps...**forever**.
 
-## Methodology / Design Patterns
+## Terraform
 
-Information about *design patterns* prevalent in the architecture.
+Initially, the Terraform will be completely comprised *within* the project **root**. It will be split up into multiple *environments* as **modules** are developed to deploy within those environments.
 
-### aws-vault
+For instance, a prospective environment could be called **tf_deploy_aspida** that deploys the infrastruture of the Bellanov L.L.C. **organization**.
 
-**aws-vault** is a CLI tool that is used to effectively manage AWS credentials. This will be used to properly assign and deliver permissions appropriately to *developers*, *testers*, etc.
+## Semantic Versioning (X.Y.Z)
 
-#### Example(s)
-
-In the example below, the **Terraform** command is executed with the privileges granted to the ***developer*** role.
-
-```sh
-aws-vault exec developer -- aws s3 ls
-```
-
-In the example below, the **Terraform** command is executed with the privileges granted to the ***devops*** role.
-
-```sh
-aws-vault exec devops -- terraform plan -out example.tfplan
-```
-
-### Semantic Versioning (X.Y.Z)
-
-Products should aptly be versioned so changes are properly tracked as they traverse development *environments*.
+Projects should aptly be ***versioned*** so changes are properly tracked as they *traverse* development environments.
 
 Example Workflow:
 
-1. A feature undergoes development in the *dev* "environment" and assigned a **version** (i.e., 0.1.0).
-1. After iterating the feature in *dev*, and a candidate (i.e., 0.1.15) for release is ready, it is **promoted** to the *qa* environment for testing; Otherwise, it is **demoted** back to *dev* for further fixes.
-1. Upon meeting testing and code coverage requirements, the feature is then promoted to *prod* (production) and is ready for consumption by customers.
+1. A feature undergoes development in the dev "environment" and assigned a **version** (i.e., 0.1.0).
+1. After iterating the feature in dev, and a candidate (i.e., 0.1.15) for release is ready, it is **promoted** to the qa environment for testing; Otherwise, it is **demoted** back to dev for further fixes.
+1. Upon meeting **testing** and **code coverage** requirements, the feature is then promoted to **prod** (production) and is ready for consumption by customers.
 
-## Workflow
+## SECRET Variable Shuffle
 
-Once changes have been tested, they can be applied.
+Overview on how to create a new **secret variable** and **integrate** it with Terraform Cloud.
 
-```bash
-cd ./environments/dev
-terraform init
-terraform plan
-terraform apply
-```
-
-## Alexei Ecosystem
-
-A summary of the *applications* and *services* deployed within the Alexei ecosystem.
-
-![Alexei Ecosystem](/diagrams/Alexei.png)
+1. Create the variable within the project and assign it a blank *default value*.
+1. Create a corresponding variable in Terraform Cloud. For instance, using a *Workspace Variable* or creating a *Variable Set*.
+1. Assign the variable to the project via the **Workspace** / **Variable Set** methods.
+1. *Plan* & *Apply*!!!
