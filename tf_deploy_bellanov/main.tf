@@ -24,6 +24,7 @@ module "build" {
 module "storage" {
   source   = "../modules/storage"
   for_each = local.manifest
+  environment = each.key
 }
 
 locals {
