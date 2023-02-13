@@ -11,6 +11,8 @@ terraform {
 
 provider "aws" {
   region      = local.region
+  access_key = var.access-key
+  secret_key = var.secret-key
 }
 
 // CodeBuild
