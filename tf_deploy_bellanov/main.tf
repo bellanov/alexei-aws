@@ -30,7 +30,7 @@ module "storage" {
 locals {
   region   = "us-east-1"
 
-  environment = {
+  environments = {
     "Dev" : {},
     "QA" : {},
     "Prod" : {}
