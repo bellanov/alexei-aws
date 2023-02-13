@@ -4,7 +4,7 @@ output "storage" {
   value       = module.storage
 }
 
-output "environments" {
+output "manifest" {
   description = "Environment Manifest."
-  value       = local.environments
+  value       = local.manifest
 }
