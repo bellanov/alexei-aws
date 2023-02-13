@@ -17,7 +17,7 @@ provider "aws" {
 
 // CodeBuild
 module "build" {
-  source   = "../modules/storage"
+  source   = "../modules/build"
 }
 
 // Logs
