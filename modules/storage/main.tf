@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "logs" {
 }
 
 resource "aws_s3_bucket_acl" "logs" {
-  bucket = aws_s3_bucket.codebuild.id
+  bucket = aws_s3_bucket.logs.id
   acl    = "private"
 }
 
