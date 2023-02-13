@@ -1,3 +1,3 @@
 variable "environment" {
-  description = "Environment"
+  description = "Environment."
 }
