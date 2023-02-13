@@ -15,6 +15,7 @@ resource "aws_s3_bucket" "logs" {
   tags = {
     Name        = "Logs Bucket"
     Environment = var.environment
+    Terraformed = "True"
   }
 }
 
