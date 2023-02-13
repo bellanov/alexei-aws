@@ -14,9 +14,8 @@ resource "aws_s3_bucket" "logs" {
 
   tags = {
     Name        = "Logs Bucket"
-    Environment = "Dev"
-    Terraformed = "true"
-    Source      = "alexei-aws"
+    Environment = var.environment
+    Terraformed = "True"
   }
 }
 
@@ -24,39 +23,3 @@ resource "aws_s3_bucket_acl" "logs" {
   bucket = aws_s3_bucket.logs.id
   acl    = "private"
 }
-
-// CodeBuild Caching Bucket
-# resource "aws_s3_bucket" "codebuild_cache" {
-#   bucket = "codebuild-cache-${random_string.code.result}"
-
-#   tags = {
-#     Name        = "CodeBuild Cache Bucket"
-#     Environment = "Dev"
-#     Terraformed = "true"
-#   }
-# }
-
-# resource "aws_s3_bucket_acl" "codebuild" {
-#   bucket = aws_s3_bucket.codebuild.id
-#   acl    = "private"
-# }
-
-
-
-# resource "google_storage_bucket" "log_bucket" {
-#   name          = "logs-${random_string.code.result}"
-#   project       = var.project
-#   location      = "US"
-#   force_destroy = true
-
-#   public_access_prevention = "enforced"
-# }
-
-# resource "google_storage_bucket" "release_bucket" {
-#   name          = "releases-${random_string.code.result}"
-#   project       = var.project
-#   location      = "US"
-#   force_destroy = true
-
-#   public_access_prevention = "enforced"
-# }

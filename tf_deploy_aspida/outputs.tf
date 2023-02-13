@@ -1,10 +1,10 @@
 
-# output "storage" {
-#   description = "Storage Infrastructure."
-#   value       = module.storage
-# }
+output "storage" {
+  description = "Storage Infrastructure."
+  value       = module.storage
+}
 
-output "manifest" {
+output "environments" {
   description = "Environment Manifest."
-  value       = local.manifest
+  value       = local.environments
 }

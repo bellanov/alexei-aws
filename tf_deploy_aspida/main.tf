@@ -1,30 +1,40 @@
+// Bellanov L.L.C.
+
 terraform {
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "4.50.0"
+    aws = {
+      source = "hashicorp/aws"
+      version = "4.54.0"
     }
   }
 }
 
 provider "aws" {
   region      = local.region
+  access_key = var.access-key
+  secret_key = var.secret-key
 }
 
-# module "storage" {
-#   source   = "../modules/storage"
-#   for_each = local.manifest
-#   project  = local.project
-#   location = local.location
-# }
+// CodeBuild
+module "build" {
+  source   = "../modules/build"
+}
+
+// Logs
+module "storage" {
+  source   = "../modules/storage"
+  for_each = local.environments
+  environment = each.key
+}
 
 locals {
-  region   = "us-east1"
+  region   = "us-east-1"
 
-  manifest = {
-    "dev" : {},
-    "staging" : {},
-    "uat" : {},
-    "prod" : {}
+  environments = {
+    "preprod" : {},
+    # "testing" : {},
+    # "staging" : {},
+    # "uat" : {},
+    "production" : {}
   }
 }
