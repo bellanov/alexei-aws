@@ -23,14 +23,14 @@ module "build" {
 // Logs
 module "storage" {
   source   = "../modules/storage"
-  for_each = local.environment
+  for_each = local.environments
   environment = each.key
 }
 
 locals {
   region   = "us-east1"
 
-  environment = {
+  environments = {
     "preprod" : {},
     # "testing" : {},
     # "staging" : {},
