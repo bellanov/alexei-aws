@@ -31,8 +31,8 @@ locals {
   region   = "us-east-1"
 
   environments = {
-    "Dev" : {},
-    "QA" : {},
-    "Prod" : {}
+    "dev" : {},
+    "qa" : {},
+    "prod" : {}
   }
 }
