@@ -1,5 +1,5 @@
 // Bellanov L.L.C.
-// Deployed organization infrastructure.
+
 terraform {
   required_providers {
     aws = {
@@ -13,6 +13,13 @@ provider "aws" {
   region      = local.region
 }
 
+// CodeBuild
+module "build" {
+  source   = "../modules/storage"
+  for_each = local.manifest
+}
+
+// Logs
 module "storage" {
   source   = "../modules/storage"
   for_each = local.manifest
