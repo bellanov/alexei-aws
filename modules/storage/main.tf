@@ -8,8 +8,8 @@ resource "random_string" "code" {
   special = false
 }
 
-resource "aws_s3_bucket" "codebuild" {
-  bucket = "codebuild-${random_string.code.result}"
+resource "aws_s3_bucket" "codebuild_cache" {
+  bucket = "codebuild-cache-${random_string.code.result}"
 }
 
 resource "aws_s3_bucket_acl" "codebuild" {
