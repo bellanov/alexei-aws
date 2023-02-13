@@ -23,17 +23,18 @@ module "build" {
 // Logs
 module "storage" {
   source   = "../modules/storage"
-  for_each = local.manifest
+  for_each = local.environment
   environment = each.key
 }
 
 locals {
   region   = "us-east1"
 
-  manifest = {
-    "dev" : {},
-    "staging" : {},
-    "uat" : {},
-    "prod" : {}
+  environment = {
+    "preprod" : {},
+    # "testing" : {},
+    # "staging" : {},
+    # "uat" : {},
+    "production" : {}
   }
 }
