@@ -1,8 +1,10 @@
+// Bellanov L.L.C.
+// Deployed organization infrastructure.
 terraform {
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "4.50.0"
+    aws = {
+      source = "hashicorp/aws"
+      version = "4.54.0"
     }
   }
 }
