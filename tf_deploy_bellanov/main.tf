@@ -16,7 +16,6 @@ provider "aws" {
 // CodeBuild
 module "build" {
   source   = "../modules/storage"
-  for_each = local.manifest
 }
 
 // Logs
