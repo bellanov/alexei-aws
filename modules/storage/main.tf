@@ -8,14 +8,38 @@ resource "random_string" "code" {
   special = false
 }
 
-resource "aws_s3_bucket" "codebuild_cache" {
-  bucket = "codebuild-cache-${random_string.code.result}"
+// Logs Bucket
+resource "aws_s3_bucket" "logs" {
+  bucket = "logs-${random_string.code.result}"
+
+  tags = {
+    Name        = "Logs Bucket"
+    Environment = "Dev"
+    Terraformed = "true"
+    Source      = "alexei-aws"
+  }
 }
 
-resource "aws_s3_bucket_acl" "codebuild" {
+resource "aws_s3_bucket_acl" "logs" {
   bucket = aws_s3_bucket.codebuild.id
   acl    = "private"
 }
+
+// CodeBuild Caching Bucket
+# resource "aws_s3_bucket" "codebuild_cache" {
+#   bucket = "codebuild-cache-${random_string.code.result}"
+
+#   tags = {
+#     Name        = "CodeBuild Cache Bucket"
+#     Environment = "Dev"
+#     Terraformed = "true"
+#   }
+# }
+
+# resource "aws_s3_bucket_acl" "codebuild" {
+#   bucket = aws_s3_bucket.codebuild.id
+#   acl    = "private"
+# }
 
 
 
