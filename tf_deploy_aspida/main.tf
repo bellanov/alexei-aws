@@ -31,11 +31,11 @@ locals {
   region   = "us-east-1"
 
   manifest = {
-    "preprod" : {},
-    # "testing" : {},
-    # "integration" : {},
-    # "staging" : {},
-    # "uat" : {},
-    "production" : {}
+    "customer_1" : {},
+    # "customer_2" : {},
+    # "customer_3" : {},
+    # "customer_4" : {},
+    # "customer_5" : {},
+    "customer_6" : {}
   }
 }
