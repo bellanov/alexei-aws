@@ -31,8 +31,8 @@ locals {
   region   = "us-east-1"
 
   manifest = {
-    "customer_1" : {},
-    "customer_2" : {},
-    "customer_3" : {}
+    "dev" : {},
+    "qa" : {},
+    "prod" : {}
   }
 }
