@@ -15,11 +15,6 @@ provider "aws" {
   secret_key = var.secret-key
 }
 
-// CodeBuild
-module "build" {
-  source   = "../modules/build"
-}
-
 // Logs
 module "storage" {
   source   = "../modules/storage"
