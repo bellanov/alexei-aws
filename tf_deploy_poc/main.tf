@@ -27,7 +27,7 @@ locals {
 
   manifest = {
     "preprod" : {},
-    # "staging" : {},
+    "staging" : {},
     "production" : {}
   }
 }
