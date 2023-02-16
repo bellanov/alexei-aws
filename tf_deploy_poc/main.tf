@@ -27,10 +27,7 @@ locals {
 
   manifest = {
     "preprod" : {},
-    # "testing" : {},
-    # "integration" : {},
     # "staging" : {},
-    # "uat" : {},
     "production" : {}
   }
 }
