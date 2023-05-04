@@ -4,8 +4,8 @@
 CUSTOMER_ID=$1
 TIMESTAMP="$(date +%s)"
 PROJECT_ID="${CUSTOMER_ID}-${TIMESTAMP}"
-ORGANIZATION_ID="1234567890"
-BILLING_ACCOUNT="XXXXXX-XXXXXX-XXXXXX"
+ORGANIZATION_ID="105637539410"
+BILLING_ACCOUNT="0181BD-E8A62D-6B2069"
 SERVICE_APIS="Cloud Build API, Cloud Resource Manager, Identity & Access Management, Secret Manager API"
 APIS="cloudbuild.googleapis.com cloudresourcemanager.googleapis.com iam.googleapis.com secretmanager.googleapis.com"
 SERVICE_ACCOUNTS="cloud-build terraform"
