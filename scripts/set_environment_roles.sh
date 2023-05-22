@@ -2,11 +2,12 @@
 #
 # Set the roles for a GCP Project.
 PROJECT_ID=$1
+PROJECT_IDS="alexei-1684209060 bellanov-1682390142 fantasyace-1682390017 helldivers-1684208845 puter-1684209240 quantcloud-1684208465"
 
 echo "Executing script: $0"
 echo "Refreshing project roles: $PROJECT_ID"
 
-EXISTING_ROLES="roles/cloudbuild.builds.editor roles/logging.logWriter roles/secretmanager.secretAccessor"
+EXISTING_ROLES="roles/artifactregistry.writer roles/cloudbuild.builds.editor roles/logging.logWriter roles/storage.admin roles/secretmanager.secretAccessor"
 
 echo "Removing Existing User Role(s): Cloud Build User"
 for ROLE in $EXISTING_ROLES
@@ -16,7 +17,7 @@ do
     --role=${ROLE}
 done
 
-ASSIGN_ROLES="roles/cloudbuild.builds.editor roles/logging.logWriter roles/secretmanager.secretAccessor"
+ASSIGN_ROLES="roles/artifactregistry.writer roles/cloudbuild.builds.editor roles/logging.logWriter roles/storage.admin roles/secretmanager.secretAccessor"
 
 echo "Assigning User Role(s): Cloud Build User"
 for ROLE in $ASSIGN_ROLES
@@ -26,7 +27,7 @@ do
     --role=${ROLE}
 done
 
-EXISTING_ROLES="roles/storage.admin roles/secretmanager.admin"
+EXISTING_ROLES="roles/artifactregistry.admin roles/run.admin roles/storage.admin roles/secretmanager.admin roles/iam.serviceAccountAdmin"
 
 echo "Removing Existing Role(s): Terraform User"
 for ROLE in $EXISTING_ROLES
@@ -36,7 +37,7 @@ do
     --role=${ROLE}
 done
 
-ASSIGN_ROLES="roles/storage.admin roles/secretmanager.admin"
+ASSIGN_ROLES="roles/artifactregistry.admin roles/run.admin roles/storage.admin roles/secretmanager.admin roles/iam.serviceAccountAdmin"
 
 echo "Assigning User Role(s): Terraform User"
 for ROLE in $ASSIGN_ROLES
@@ -45,3 +46,4 @@ do
     --member=serviceAccount:terraform@${PROJECT_ID}.iam.gserviceaccount.com \
     --role=${ROLE}
 done
+
