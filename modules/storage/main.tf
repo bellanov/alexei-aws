@@ -5,11 +5,10 @@ resource "random_string" "code" {
   special = false
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-test-bucket"
+resource "aws_s3_bucket" "testing" {
+  bucket = "testing-${random_string.code.result}"
+}
 
-  tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
-  }
+resource "aws_s3_bucket" "releases" {
+  bucket = "releases-${random_string.code.result}"
 }
