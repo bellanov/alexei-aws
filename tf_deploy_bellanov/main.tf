@@ -11,6 +11,13 @@ terraform {
       version = "5.31.0"
     }
   }
+
+  cloud {
+    organization = "bellanov"
+    workspaces {
+      name = "aws_deploy_bellanov"
+    }
+  }
 }
 
 provider "aws" {
