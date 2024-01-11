@@ -14,9 +14,9 @@ terraform {
 }
 
 provider "aws" {
-  access_key = "AKIAZIKEC4TLJPAOTXJ4"
-  secret_key = "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"
-  region = "us-east-1"
+  access_key = var.access_key
+  secret_key = var.secret_key
+  region = local.region
 }
 
 # Modules
@@ -42,9 +42,9 @@ module "storage" {
 #================================================
 
 locals {
-  region   = "us-east1"
+  region   = "us-east-1"
   project  = "bellanov-1682390142"
-  zone     = "us-east1-b"
+  zone     = "us-east-1-b"
   location = "US"
 
   security = {
