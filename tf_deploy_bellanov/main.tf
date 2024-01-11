@@ -6,18 +6,17 @@
 #================================================
 terraform {
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "4.50.0"
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.31.0"
     }
   }
 }
 
-provider "google" {
-  project     = local.project
-  region      = local.region
-  zone        = local.zone
-  credentials = var.gcp_creds
+provider "aws" {
+  access_key = "AKIAZIKEC4TLJPAOTXJ4"
+  secret_key = "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"
+  region = "us-east-1"
 }
 
 # Modules
@@ -31,11 +30,11 @@ module "storage" {
   location = local.location
 }
 
-module "security" {
-  source             = "../modules/security"
-  service_accounts   = local.security.service_accounts
-  terraform_identity = local.security.terraform_identity
-}
+# module "security" {
+#   source             = "../modules/security"
+#   service_accounts   = local.security.service_accounts
+#   terraform_identity = local.security.terraform_identity
+# }
 
 # Locals
 #
@@ -108,59 +107,3 @@ locals {
 # Deploy things that were too annoying to put in a module.
 #================================================
 
-// poc-editor
-resource "google_cloud_run_service" "editor" {
-  for_each = local.environments
-  name     = "editor-svc-${each.key}"
-  location = local.cloud_run_config.location
-
-  template {
-    spec {
-      containers {
-        image = each.value.cloud_run_services.editor.image
-
-        env {
-          name  = "EDITOR_UPSTREAM_RENDER_URL"
-          value = each.value.cloud_run_services.editor.image
-        }
-
-      }
-      service_account_name = module.security.service_accounts["editor-identity"]
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-
-  depends_on = [
-    module.security,
-    google_cloud_run_service.renderer
-  ]
-}
-
-// poc-renderer
-resource "google_cloud_run_service" "renderer" {
-  for_each = local.environments
-  name     = "renderer-svc-${each.key}"
-  location = local.cloud_run_config.location
-
-  template {
-    spec {
-      containers {
-        image = each.value.cloud_run_services.renderer.image
-      }
-      service_account_name = module.security.service_accounts["renderer-identity"]
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-
-  depends_on = [
-    module.security
-  ]
-}
