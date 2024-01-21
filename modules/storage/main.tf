@@ -7,16 +7,16 @@ resource "random_string" "code" {
 
 resource "aws_s3_bucket" "s3" {
   for_each = var.buckets
-  bucket = "${each.key}-${random_string.code.result}"
+  bucket   = "${each.key}-${random_string.code.result}"
 
   tags = {
-    "Description" = "${each.value.description}" 
+    "Description" = "${each.value.description}"
   }
 }
 
 resource "aws_s3_bucket_public_access_block" "s3" {
   for_each = aws_s3_bucket.s3
-  bucket = each.value.bucket
+  bucket   = each.value.bucket
 
   block_public_acls       = true
   block_public_policy     = true
