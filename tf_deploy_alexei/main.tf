@@ -35,6 +35,7 @@ module "storage" {
   source   = "../modules/storage"
   project  = local.project
   location = local.location
+  buckets  = local.storage.buckets
 }
 
 # module "security" {
@@ -54,18 +55,12 @@ locals {
   zone     = "us-east-1-b"
   location = "US"
 
+  storage = {
+    "buckets" : {}
+  }
+
   security = {
-    "service_accounts" : {
-      "renderer" : {
-        "display_name" : "Service identity of the Renderer (Backend) service.",
-        "service_account" : "projects/${local.project}/serviceAccounts/renderer-identity@${local.project}.iam.gserviceaccount.com"
-      },
-      "editor" : {
-        "display_name" : "Service identity of the Editor (Frontend) service.",
-        "service_account" : "projects/${local.project}/serviceAccounts/editor-identity@${local.project}.iam.gserviceaccount.com"
-      }
-    },
-    "terraform_identity" : "terraform@${local.project}.iam.gserviceaccount.com"
+    "service_accounts" : {}
   }
 
   cloud_run_config = {

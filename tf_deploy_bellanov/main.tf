@@ -33,8 +33,6 @@ provider "aws" {
 
 module "storage" {
   source   = "../modules/storage"
-  project  = local.project
-  location = local.location
   buckets  = local.storage.buckets
 }
 
@@ -51,9 +49,6 @@ module "storage" {
 
 locals {
   region   = "us-east-1"
-  project  = "bellanov-1682390142"
-  zone     = "us-east-1-b"
-  location = "US"
 
   storage = {
     "buckets" : {
@@ -67,17 +62,7 @@ locals {
   }
 
   security = {
-    "service_accounts" : {
-      "renderer" : {
-        "display_name" : "Service identity of the Renderer (Backend) service.",
-        "service_account" : "projects/${local.project}/serviceAccounts/renderer-identity@${local.project}.iam.gserviceaccount.com"
-      },
-      "editor" : {
-        "display_name" : "Service identity of the Editor (Frontend) service.",
-        "service_account" : "projects/${local.project}/serviceAccounts/editor-identity@${local.project}.iam.gserviceaccount.com"
-      }
-    },
-    "terraform_identity" : "terraform@${local.project}.iam.gserviceaccount.com"
+    "service_accounts" : {}
   }
 
   cloud_run_config = {
@@ -89,10 +74,10 @@ locals {
     "dev" : {
       "cloud_run_services" : {
         "editor" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
         },
         "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
         }
       }
     },
@@ -100,10 +85,10 @@ locals {
     "qa" : {
       "cloud_run_services" : {
         "editor" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
         },
         "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
         }
       }
     },
@@ -111,10 +96,10 @@ locals {
     "prod" : {
       "cloud_run_services" : {
         "editor" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
         },
         "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
         }
       }
     }
