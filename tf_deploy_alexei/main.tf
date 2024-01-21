@@ -15,7 +15,7 @@ terraform {
   cloud {
     organization = "bellanov"
     workspaces {
-      name = "aws_deploy_bellanov"
+      name = "aws_deploy_alexei"
     }
   }
 }
@@ -33,6 +33,8 @@ provider "aws" {
 
 module "storage" {
   source   = "../modules/storage"
+  project  = local.project
+  location = local.location
   buckets  = local.storage.buckets
 }
 
@@ -49,16 +51,12 @@ module "storage" {
 
 locals {
   region   = "us-east-1"
+  project  = "bellanov-1682390142"
+  zone     = "us-east-1-b"
+  location = "US"
 
   storage = {
-    "buckets" : {
-      "testing" : {
-        "description" : "Testing Results.",
-      },
-      "releases" : {
-        "description" : "Build Artifacts.",
-      }
-    }
+    "buckets" : {}
   }
 
   security = {
@@ -74,10 +72,10 @@ locals {
     "dev" : {
       "cloud_run_services" : {
         "editor" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
         },
         "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
         }
       }
     },
@@ -85,10 +83,10 @@ locals {
     "qa" : {
       "cloud_run_services" : {
         "editor" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
         },
         "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
         }
       }
     },
@@ -96,10 +94,10 @@ locals {
     "prod" : {
       "cloud_run_services" : {
         "editor" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
         },
         "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
+          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
         }
       }
     }
