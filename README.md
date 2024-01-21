@@ -33,7 +33,9 @@ Overview on how to create a new **secret variable** and **integrate** it with Te
 
 In certain circumstances, resources can be created within the console then imported into Terraform. This helps amateurs with Terraform in that they don't have to code their way to procuring resources.
 
-To do so, establish the appropriate authentication context via `terraform login`, as credentials are saved remotely in Terraform Cloud.
+To do so, establish the appropriate authentication context via `terraform login`, as credentials are saved remotely in Terraform Cloud. 
+
+Existing resources can then be imported into new resource statements.
 
 ```sh
 # Import existing bucket
