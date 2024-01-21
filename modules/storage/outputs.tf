@@ -1,12 +1,7 @@
 
-output "testing" {
-  description = "Logs Bucket."
-  value       = aws_s3_bucket.testing.id
-}
-
-output "releases" {
-  description = "Releases Bucket."
-  value       = aws_s3_bucket.releases.id
+output "buckets" {
+  description = "S3 Buckets."
+  value       = { for s3 in aws_s3_bucket.s3 : s3.bucket => tomap({ "description" = s3.tags.Description }) }
 }
 
 # output "artifact_registry" {

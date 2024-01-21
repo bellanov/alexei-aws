@@ -35,6 +35,7 @@ module "storage" {
   source   = "../modules/storage"
   project  = local.project
   location = local.location
+  buckets  = local.storage.buckets
 }
 
 # module "security" {
@@ -53,6 +54,17 @@ locals {
   project  = "bellanov-1682390142"
   zone     = "us-east-1-b"
   location = "US"
+
+  storage = {
+    "buckets" : {
+      "testing" : {
+        "description" : "Testing Results.",
+      },
+      "releases" : {
+        "description" : "Build Artifacts.",
+      }
+    }
+  }
 
   security = {
     "service_accounts" : {
