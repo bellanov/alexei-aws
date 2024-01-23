@@ -38,6 +38,7 @@ module "storage" {
 
 module "network" {
   source = "../modules/network"
+  vpcs = local.network.vpcs
 }
 
 module "application" {
@@ -73,8 +74,13 @@ locals {
     "service_accounts" : {}
   }
 
-  cloud_run_config = {
-    "location" : "us-central1"
+  network = {
+    "vpcs" : {
+      "Web VPC" : {
+        "name" : "Web VPC",
+        "cidr_block" : "192.168.100.0/24"
+      }
+    }
   }
 
   environments = {
