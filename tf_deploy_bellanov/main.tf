@@ -45,11 +45,9 @@ module "application" {
   source = "../modules/application"
 }
 
-# module "security" {
-#   source             = "../modules/security"
-#   service_accounts   = local.security.service_accounts
-#   terraform_identity = local.security.terraform_identity
-# }
+module "security" {
+  source             = "../modules/security"
+}
 
 # Locals
 #
@@ -70,9 +68,7 @@ locals {
     }
   }
 
-  security = {
-    "service_accounts" : {}
-  }
+  security = {}
 
   network = {
     "vpcs" : {
@@ -86,38 +82,11 @@ locals {
 
   environments = {
     # Development
-    "dev" : {
-      "cloud_run_services" : {
-        "editor" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
-        },
-        "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
-        }
-      }
-    },
+    "dev" : {},
     # Quality Assurance
-    "qa" : {
-      "cloud_run_services" : {
-        "editor" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
-        },
-        "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
-        }
-      }
-    },
+    "qa" : {},
     # Production
-    "prod" : {
-      "cloud_run_services" : {
-        "editor" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-editor:0.1.1"
-        },
-        "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/docker-releases/poc-renderer:0.1.1"
-        }
-      }
-    }
+    "prod" : {}
   }
 }
 
