@@ -36,6 +36,14 @@ module "storage" {
   buckets = local.storage.buckets
 }
 
+module "network" {
+  source = "../modules/network"
+}
+
+module "application" {
+  source = "../modules/application"
+}
+
 # module "security" {
 #   source             = "../modules/security"
 #   service_accounts   = local.security.service_accounts

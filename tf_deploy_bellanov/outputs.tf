@@ -4,7 +4,12 @@ output "storage" {
   value       = module.storage
 }
 
-# output "security" {
-#   description = "Security Module."
-#   value       = module.security
-# }
+output "network" {
+  description = "Network Module."
+  value       = module.network
+}
+
+output "application" {
+  description = "Application Module."
+  value       = module.application
+}
