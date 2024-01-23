@@ -38,7 +38,7 @@ module "storage" {
 
 module "network" {
   source = "../modules/network"
-  vpcs = local.network.vpcs
+  vpcs   = local.network.vpcs
 }
 
 module "application" {
@@ -46,7 +46,7 @@ module "application" {
 }
 
 module "security" {
-  source             = "../modules/security"
+  source = "../modules/security"
 }
 
 # Locals

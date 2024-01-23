@@ -1,4 +1,4 @@
-// Bellanov L.L.C.
+// Alexei
 
 # Providers
 # 
@@ -32,17 +32,22 @@ provider "aws" {
 #================================================
 
 module "storage" {
-  source   = "../modules/storage"
-  project  = local.project
-  location = local.location
-  buckets  = local.storage.buckets
+  source  = "../modules/storage"
+  buckets = local.storage.buckets
 }
 
-# module "security" {
-#   source             = "../modules/security"
-#   service_accounts   = local.security.service_accounts
-#   terraform_identity = local.security.terraform_identity
-# }
+module "network" {
+  source = "../modules/network"
+  vpcs   = local.network.vpcs
+}
+
+module "application" {
+  source = "../modules/application"
+}
+
+module "security" {
+  source = "../modules/security"
+}
 
 # Locals
 #
@@ -50,57 +55,32 @@ module "storage" {
 #================================================
 
 locals {
-  region   = "us-east-1"
-  project  = "bellanov-1682390142"
-  zone     = "us-east-1-b"
-  location = "US"
+  region = "us-west-1"
 
   storage = {
-    "buckets" : {}
+    "buckets" : {
+      "testing" : {
+        "description" : "Testing Results.",
+      },
+      "releases" : {
+        "description" : "Build Artifacts.",
+      }
+    }
   }
 
-  security = {
-    "service_accounts" : {}
-  }
+  security = {}
 
-  cloud_run_config = {
-    "location" : "us-central1"
+  network = {
+    "vpcs" : {}
   }
 
   environments = {
     # Development
-    "dev" : {
-      "cloud_run_services" : {
-        "editor" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
-        },
-        "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
-        }
-      }
-    },
+    "dev" : {},
     # Quality Assurance
-    "qa" : {
-      "cloud_run_services" : {
-        "editor" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
-        },
-        "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
-        }
-      }
-    },
+    "qa" : {},
     # Production
-    "prod" : {
-      "cloud_run_services" : {
-        "editor" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-editor:0.1.1"
-        },
-        "renderer" : {
-          "image" : "us-central1-docker.pkg.dev/${local.project}/docker-releases/poc-renderer:0.1.1"
-        }
-      }
-    }
+    "prod" : {}
   }
 }
 
