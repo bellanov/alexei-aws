@@ -76,10 +76,11 @@ locals {
 
   network = {
     "vpcs" : {
-      "Web VPC" : {
-        "name" : "Web VPC",
-        "cidr_block" : "192.168.100.0/24"
-      }
+      # Not made of money
+      # "Web VPC" : {
+      #   "name" : "Web VPC",
+      #   "cidr_block" : "192.168.100.0/24"
+      # }
     }
   }
 
