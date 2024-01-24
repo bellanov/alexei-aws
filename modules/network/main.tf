@@ -8,3 +8,14 @@ resource "aws_vpc" "vpc" {
     Name = each.key
   }
 }
+
+resource "aws_subnet" "subnet" {
+  for_each          = var.subnets
+  vpc_id            = each.value.vpc_id
+  cidr_block        = each.value.cidr_block
+  availability_zone = each.value.availability_zone
+
+  tags = {
+    Name = each.key
+  }
+}
