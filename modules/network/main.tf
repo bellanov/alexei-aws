@@ -18,4 +18,6 @@ resource "aws_subnet" "subnet" {
   tags = {
     Name = each.key
   }
+
+  depends_on = [ aws_vpc.vpc ]
 }
