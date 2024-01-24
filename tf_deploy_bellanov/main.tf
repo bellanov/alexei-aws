@@ -44,6 +44,7 @@ module "network" {
 
 module "application" {
   source = "../modules/application"
+  aws_instances = local.aws_instances
 }
 
 module "security" {
@@ -98,6 +99,15 @@ locals {
   }
 
   public_subnets = {}
+
+  aws_instances = {
+    # "Web Server 1" : {
+
+    # },
+    # "Web Server 2" : {
+
+    # }
+  }
 
   environments = {
     # Development
