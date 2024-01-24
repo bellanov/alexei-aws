@@ -1,5 +1,5 @@
 
-resource "aws_instance" "web" {
+resource "aws_instance" "ec2" {
   for_each = var.aws_instances
   ami           = each.value.ami
   instance_type = each.value.instance_type

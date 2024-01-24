@@ -1,6 +1,5 @@
 
-
-# output "service_accounts" {
-#   description = "Service Accounts."
-#   value       = { for sa in google_service_account.sa : sa.account_id => sa.email }
+# output "aws_instances" {
+#   description = "AWS Instances."
+#   value       = { for instance in aws_instance.aws_instance.ec2 : instance.tags.Name => tomap({ "id" = subnet.id, "cidr_block" = subnet.cidr_block, "vpc_id" = subnet.vpc_id }) }
 # }

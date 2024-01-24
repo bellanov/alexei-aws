@@ -38,8 +38,8 @@ module "storage" {
 
 module "network" {
   source  = "../modules/network"
-  vpcs    = local.network.vpcs
-  subnets = local.network.subnets
+  vpcs    = local.vpcs
+  subnets = local.subnets
 }
 
 module "application" {
@@ -72,10 +72,11 @@ locals {
 
   security = {}
 
-  network = {
-    "vpcs" : {},
-    "subnets" : {}
-  }
+  vpcs = {}
+
+  subnets = {}
+
+  public_subnets = {}
 
   aws_instances = {}
 
