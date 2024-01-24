@@ -45,6 +45,8 @@ module "network" {
 module "application" {
   source = "../modules/application"
   aws_instances = local.aws_instances
+
+  depends_on = [ module.network ]
 }
 
 module "security" {
