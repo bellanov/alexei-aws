@@ -37,8 +37,9 @@ module "storage" {
 }
 
 module "network" {
-  source = "../modules/network"
-  vpcs   = local.network.vpcs
+  source  = "../modules/network"
+  vpcs    = local.network.vpcs
+  subnets = local.network.subnets
 }
 
 module "application" {
@@ -71,7 +72,8 @@ locals {
   security = {}
 
   network = {
-    "vpcs" : {}
+    "vpcs" : {},
+    "subnets" : {}
   }
 
   environments = {
