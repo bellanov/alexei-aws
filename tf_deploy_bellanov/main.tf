@@ -109,9 +109,12 @@ locals {
       "subnet_id": module.network.subnets["Web Subnet 1"].id,
       "user_data" : file("${path.module}/data/get_instance_id.sh")
     },
-    # "Web Server 2" : {
-
-    # }
+    "Web Server 2" : {
+      "ami": local.ami_ids["us-east-1"],
+      "instance_type": "t2.micro",
+      "subnet_id": module.network.subnets["Web Subnet 2"].id,
+      "user_data" : file("${path.module}/data/get_instance_id.sh")
+    }
   }
 
   environments = {
