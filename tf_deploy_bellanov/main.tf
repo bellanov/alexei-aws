@@ -38,8 +38,8 @@ module "storage" {
 
 module "network" {
   source  = "../modules/network"
-  vpcs    = local.network.vpcs
-  subnets = local.network.subnets
+  vpcs    = local.vpcs
+  subnets = local.subnets
 }
 
 module "application" {
@@ -59,6 +59,10 @@ locals {
   region             = "us-east-1"
   availability_zones = ["us-east-1a", "us-east-1b"]
 
+  ami_ids = {
+    "us-east-1" : "ami-97785bed"
+  }
+
   storage = {
     "buckets" : {
       "testing" : {
@@ -72,34 +76,28 @@ locals {
 
   security = {}
 
-  network = {
-    "vpcs" : {
-      # Not made of money
-      "Web VPC" : {
-        "name" : "Web VPC",
-        "cidr_block" : "192.168.100.0/24"
-      }
-    },
-    "subnets" : {
-      # "Web Subnet 1" : {
-      #   "vpc_id" : "someting",
-      #   "cidr_block" : cidrsubnet("192.168.100.0/24", 2, 0),
-      #   "availability_zone" : local.availability_zones[0]
-      # },
-      # "Web Subnet 2" : {
-      #   "vpc_id" : "someting",
-      #   "cidr_block" : cidrsubnet("192.168.100.0/24", 2, 1),
-      #   "availability_zone" : local.availability_zones[1]
-      # },
-    },
-    "public_subnets" : {}
-  }
-
-  application = {
-    "ami_ids" : {
-      "us-east-1" : "ami-97785bed"
+  vpcs = {
+    # Not made of money
+    "Web VPC" : {
+      "name" : "Web VPC",
+      "cidr_block" : "192.168.100.0/24"
     }
   }
+
+  subnets = {
+    "Web Subnet 1" : {
+      "vpc_id" : module.network.vpcs["Web VPC"].id ,
+      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 0),
+      "availability_zone" : local.availability_zones[0]
+    },
+    "Web Subnet 2" : {
+      "vpc_id" : module.network.vpcs["Web VPC"].id,
+      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 1),
+      "availability_zone" : local.availability_zones[1]
+    }
+  }
+
+  public_subnets = {}
 
   environments = {
     # Development
