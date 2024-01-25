@@ -84,72 +84,72 @@ locals {
   security = {}
 
   vpcs = {
-    "Web VPC" : {
-      "name" : "Web VPC",
-      "cidr_block" : "192.168.100.0/24"
-    }
+    # "Web VPC" : {
+    #   "name" : "Web VPC",
+    #   "cidr_block" : "192.168.100.0/24"
+    # }
   }
 
   subnets = {
-    "Web Subnet 1" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id,
-      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 0),
-      "availability_zone" : local.availability_zones[0]
-    },
-    "Web Subnet 2" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id,
-      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 1),
-      "availability_zone" : local.availability_zones[1]
-    },
-    "Public Subnet 1" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id,
-      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 2),
-      "availability_zone" : local.availability_zones[0]
-    },
-    "Public Subnet 2" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id,
-      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 3),
-      "availability_zone" : local.availability_zones[1]
-    }
+    # "Web Subnet 1" : {
+    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 0),
+    #   "availability_zone" : local.availability_zones[0]
+    # },
+    # "Web Subnet 2" : {
+    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 1),
+    #   "availability_zone" : local.availability_zones[1]
+    # },
+    # "Public Subnet 1" : {
+    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 2),
+    #   "availability_zone" : local.availability_zones[0]
+    # },
+    # "Public Subnet 2" : {
+    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 3),
+    #   "availability_zone" : local.availability_zones[1]
+    # }
   }
 
   internet_gateways = {
-    "Web IGW" : {
-      vpc_id : module.network.vpcs["Web VPC"].id
-    }
+    # "Web IGW" : {
+    #   vpc_id : module.network.vpcs["Web VPC"].id
+    # }
   }
 
   public_routes = {
-    "Web VPC" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id,
-      "igw_id" : module.network.internet_gateways["Web IGW"].id
-    }
+    # "Web VPC" : {
+    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
+    #   "igw_id" : module.network.internet_gateways["Web IGW"].id
+    # }
   }
 
   route_table_associations = {
-    "Public Subnet 1" : {
-      "subnet_id" : module.network.subnets["Public Subnet 1"].id,
-      "route_table_id" : module.network.public_routes["Web VPC"].id
-    },
-    "Public Subnet 2" : {
-      "subnet_id" : module.network.subnets["Public Subnet 2"].id,
-      "route_table_id" : module.network.public_routes["Web VPC"].id
-    }
+    # "Public Subnet 1" : {
+    #   "subnet_id" : module.network.subnets["Public Subnet 1"].id,
+    #   "route_table_id" : module.network.public_routes["Web VPC"].id
+    # },
+    # "Public Subnet 2" : {
+    #   "subnet_id" : module.network.subnets["Public Subnet 2"].id,
+    #   "route_table_id" : module.network.public_routes["Web VPC"].id
+    # }
   }
 
   aws_instances = {
-    "Web Server 1" : {
-      "ami" : local.ami_ids["us-east-1"],
-      "instance_type" : "t2.micro",
-      "subnet_id" : module.network.subnets["Web Subnet 1"].id,
-      "user_data" : file("${path.module}/data/get_instance_id.sh")
-    },
-    "Web Server 2" : {
-      "ami" : local.ami_ids["us-east-1"],
-      "instance_type" : "t2.micro",
-      "subnet_id" : module.network.subnets["Web Subnet 2"].id,
-      "user_data" : file("${path.module}/data/get_instance_id.sh")
-    }
+    # "Web Server 1" : {
+    #   "ami" : local.ami_ids["us-east-1"],
+    #   "instance_type" : "t2.micro",
+    #   "subnet_id" : module.network.subnets["Web Subnet 1"].id,
+    #   "user_data" : file("${path.module}/data/get_instance_id.sh")
+    # },
+    # "Web Server 2" : {
+    #   "ami" : local.ami_ids["us-east-1"],
+    #   "instance_type" : "t2.micro",
+    #   "subnet_id" : module.network.subnets["Web Subnet 2"].id,
+    #   "user_data" : file("${path.module}/data/get_instance_id.sh")
+    # }
   }
 
   environments = {
@@ -167,3 +167,40 @@ locals {
 # Deploy things that were too annoying to put in a module.
 #================================================
 
+# resource "aws_security_group" "elb_sg" {
+#   name        = "ELB Security Group"
+#   description = "Allow incoming HTTP traffic from the internet"
+#   vpc_id      = "${aws_vpc.web_vpc.id}"
+#   ingress {
+#     from_port   = 80
+#     to_port     = 80
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+#   # Allow all outbound traffic
+#   egress {
+#     from_port = 0
+#     to_port = 0
+#     protocol = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
+# resource "aws_security_group" "web_sg" {
+#   name        = "Web Server Security Group"
+#   description = "Allow HTTP traffic from ELB security group"
+#   vpc_id      = "${aws_vpc.web_vpc.id}"
+#   # HTTP access from the VPC
+#   ingress {
+#     from_port       = 80
+#     to_port         = 80
+#     protocol        = "tcp"
+#     security_groups = ["${aws_security_group.elb_sg.id}"]
+#   }
+#   # Allow all outbound traffic
+#   egress {
+#     from_port = 0
+#     to_port = 0
+#     protocol = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
