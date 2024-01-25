@@ -29,4 +29,6 @@ resource "aws_internet_gateway" "igw" {
   tags = {
     Name = each.key
   }
+
+  depends_on = [ aws_vpc.vpc ]
 }
