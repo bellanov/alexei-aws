@@ -98,10 +98,7 @@ locals {
       "vpc_id" : module.network.vpcs["Web VPC"].id,
       "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 1),
       "availability_zone" : local.availability_zones[1]
-    }
-  }
-
-  public_subnets = {
+    },
     "Public Subnet 1" : {
       "vpc_id" : module.network.vpcs["Web VPC"].id ,
       "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 2),
@@ -123,7 +120,7 @@ locals {
   public_routes = {
     "Web VPC" : {
       "vpc_id" : module.network.vpcs["Web VPC"].id,
-      "igw_id" : "something"
+      "igw_id" : module.network.internet_gateways["Web IGW"].id
     }
   }
 
