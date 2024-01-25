@@ -32,3 +32,20 @@ resource "aws_internet_gateway" "igw" {
 
   depends_on = [ aws_vpc.vpc ]
 }
+
+resource "aws_route_table" "public" {
+  for_each = var.public_routes
+  vpc_id = each.value.vpc_id
+  
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = each.value.igw_id
+  }
+
+  tags =  {
+    Name = each.key
+    Description = "Public Subnet Route Table"
+  }
+
+  depends_on = [ aws_vpc.vpc ]
+}

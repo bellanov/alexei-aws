@@ -13,3 +13,8 @@ output "internet_gateways" {
   description = "Internet Gateways."
   value       = { for igw in aws_internet_gateway.igw : igw.tags.Name => tomap({ "id" = igw.id, "vpc_id" = igw.vpc_id }) }
 }
+
+output "public_routes" {
+  description = "Public Routes."
+  value       = { for route in aws_route_table.public : route.tags.Name => tomap({ "id" = route.id, "vpc_id" = route.vpc_id }) }
+}
