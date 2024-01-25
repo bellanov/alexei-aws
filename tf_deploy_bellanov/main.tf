@@ -40,6 +40,7 @@ module "network" {
   source  = "../modules/network"
   vpcs    = local.vpcs
   subnets = local.subnets
+  internet_gateways = local.internet_gateways
 }
 
 module "security" {
@@ -100,7 +101,31 @@ locals {
     }
   }
 
-  public_subnets = {}
+  public_subnets = {
+    "Public Subnet 1" : {
+      "vpc_id" : module.network.vpcs["Web VPC"].id ,
+      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 2),
+      "availability_zone" : local.availability_zones[0]
+    },
+    "Public Subnet 2" : {
+      "vpc_id" : module.network.vpcs["Web VPC"].id,
+      "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 3),
+      "availability_zone" : local.availability_zones[1]
+    }
+  }
+
+  internet_gateways = {
+    "Web IGW" : {
+      vpc_id : module.network.vpcs["Web VPC"].id
+    }
+  }
+
+  public_routes = {
+    "Web VPC" : {
+      "vpc_id" : module.network.vpcs["Web VPC"].id,
+      "igw_id" : "something"
+    }
+  }
 
   aws_instances = {
     "Web Server 1" : {

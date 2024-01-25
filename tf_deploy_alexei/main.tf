@@ -40,6 +40,7 @@ module "network" {
   source  = "../modules/network"
   vpcs    = local.vpcs
   subnets = local.subnets
+  internet_gateways = local.internet_gateways
 }
 
 module "security" {
@@ -77,6 +78,8 @@ locals {
   subnets = {}
 
   public_subnets = {}
+
+  internet_gateways = {}
 
   aws_instances = {}
 
