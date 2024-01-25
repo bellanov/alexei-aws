@@ -37,11 +37,12 @@ module "storage" {
 }
 
 module "network" {
-  source  = "../modules/network"
-  vpcs    = local.vpcs
-  subnets = local.subnets
-  internet_gateways = local.internet_gateways
-  public_routes = local.public_routes
+  source                   = "../modules/network"
+  vpcs                     = local.vpcs
+  subnets                  = local.subnets
+  internet_gateways        = local.internet_gateways
+  public_routes            = local.public_routes
+  route_table_associations = local.route_table_associations
 }
 
 module "security" {
@@ -49,10 +50,10 @@ module "security" {
 }
 
 module "application" {
-  source = "../modules/application"
+  source        = "../modules/application"
   aws_instances = local.aws_instances
 
-  depends_on = [ module.network ]
+  depends_on = [module.network]
 }
 
 # Locals
@@ -91,7 +92,7 @@ locals {
 
   subnets = {
     "Web Subnet 1" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id ,
+      "vpc_id" : module.network.vpcs["Web VPC"].id,
       "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 0),
       "availability_zone" : local.availability_zones[0]
     },
@@ -101,7 +102,7 @@ locals {
       "availability_zone" : local.availability_zones[1]
     },
     "Public Subnet 1" : {
-      "vpc_id" : module.network.vpcs["Web VPC"].id ,
+      "vpc_id" : module.network.vpcs["Web VPC"].id,
       "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 2),
       "availability_zone" : local.availability_zones[0]
     },
@@ -126,20 +127,27 @@ locals {
   }
 
   route_table_associations = {
-   
+    "Public Subnet 1" : {
+      "subnet_id" : module.network.subnets["Public Subnet 1"].id,
+      "route_table_id" : module.network.public_routes["Web VPC"].id
+    },
+    "Public Subnet 2" : {
+      "subnet_id" : module.network.subnets["Public Subnet 2"].id,
+      "route_table_id" : module.network.public_routes["Web VPC"].id
+    }
   }
 
   aws_instances = {
     "Web Server 1" : {
-      "ami": local.ami_ids["us-east-1"],
-      "instance_type": "t2.micro",
-      "subnet_id": module.network.subnets["Web Subnet 1"].id,
+      "ami" : local.ami_ids["us-east-1"],
+      "instance_type" : "t2.micro",
+      "subnet_id" : module.network.subnets["Web Subnet 1"].id,
       "user_data" : file("${path.module}/data/get_instance_id.sh")
     },
     "Web Server 2" : {
-      "ami": local.ami_ids["us-east-1"],
-      "instance_type": "t2.micro",
-      "subnet_id": module.network.subnets["Web Subnet 2"].id,
+      "ami" : local.ami_ids["us-east-1"],
+      "instance_type" : "t2.micro",
+      "subnet_id" : module.network.subnets["Web Subnet 2"].id,
       "user_data" : file("${path.module}/data/get_instance_id.sh")
     }
   }
