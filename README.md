@@ -2,8 +2,6 @@
 
 Alexei *Amazon Web Services* port.
 
-The Terraform code in **tf_deploy_bellanov** is responsible for deploying the infrastruture of the Bellanov L.L.C. **organization**.
-
 ## Terraform
 
 Initially, the Terraform will be completely comprised *within* the project **root**. It will be split up into multiple *environments* as **modules** are developed to deploy within those environments.

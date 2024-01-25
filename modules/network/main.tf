@@ -55,5 +55,5 @@ resource "aws_route_table_association" "rta" {
   subnet_id      = each.value.subnet_id
   route_table_id = each.value.route_table_id
 
-  depends_on = [ aws_subnet.subnet ]
+  depends_on = [aws_subnet.subnet]
 }
