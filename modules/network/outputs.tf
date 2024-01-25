@@ -19,7 +19,7 @@ output "public_routes" {
   value       = { for route in aws_route_table.public : route.tags.Name => tomap({ "id" = route.id, "vpc_id" = route.vpc_id }) }
 }
 
-# output "route_table_associations" {
-#   description = "Route Table Associations."
-#   value       = { for rta in aws_route_table_association.rta : route.tags.Name => tomap({ "id" = rta.id, "vpc_id" = route.vpc_id }) }
-# }
+output "route_table_associations" {
+  description = "Route Table Associations."
+  value       = { for rta in aws_route_table_association.rta : rta.id => tomap({ "route_table_id" = rta.route_table_id, "subnet_id" = rta.subnet_id }) }
+}
