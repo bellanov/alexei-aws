@@ -41,6 +41,7 @@ module "network" {
   vpcs    = local.vpcs
   subnets = local.subnets
   internet_gateways = local.internet_gateways
+  public_routes = local.public_routes
 }
 
 module "security" {
@@ -80,6 +81,10 @@ locals {
   public_subnets = {}
 
   internet_gateways = {}
+  
+  public_routes = {}
+
+  route_table_associations = {}
 
   aws_instances = {}
 
