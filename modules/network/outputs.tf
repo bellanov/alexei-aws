@@ -18,3 +18,8 @@ output "public_routes" {
   description = "Public Routes."
   value       = { for route in aws_route_table.public : route.tags.Name => tomap({ "id" = route.id, "vpc_id" = route.vpc_id }) }
 }
+
+# output "route_table_associations" {
+#   description = "Route Table Associations."
+#   value       = { for rta in aws_route_table_association.rta : route.tags.Name => tomap({ "id" = rta.id, "vpc_id" = route.vpc_id }) }
+# }

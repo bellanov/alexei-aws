@@ -37,11 +37,12 @@ module "storage" {
 }
 
 module "network" {
-  source  = "../modules/network"
-  vpcs    = local.vpcs
-  subnets = local.subnets
-  internet_gateways = local.internet_gateways
-  public_routes = local.public_routes
+  source                   = "../modules/network"
+  vpcs                     = local.vpcs
+  subnets                  = local.subnets
+  internet_gateways        = local.internet_gateways
+  public_routes            = local.public_routes
+  route_table_associations = local.route_table_associations
 }
 
 module "security" {
@@ -49,7 +50,7 @@ module "security" {
 }
 
 module "application" {
-  source = "../modules/application"
+  source        = "../modules/application"
   aws_instances = local.aws_instances
 }
 
@@ -59,7 +60,8 @@ module "application" {
 #================================================
 
 locals {
-  region = "us-west-1"
+  region             = "us-west-1"
+  availability_zones = ["us-west-1a", "us-west-1b"]
 
   storage = {
     "buckets" : {
@@ -81,7 +83,7 @@ locals {
   public_subnets = {}
 
   internet_gateways = {}
-  
+
   public_routes = {}
 
   route_table_associations = {}

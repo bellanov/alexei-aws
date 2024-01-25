@@ -19,33 +19,41 @@ resource "aws_subnet" "subnet" {
     Name = each.key
   }
 
-  depends_on = [ aws_vpc.vpc ]
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_internet_gateway" "igw" {
   for_each = var.internet_gateways
-  vpc_id = each.value.vpc_id
+  vpc_id   = each.value.vpc_id
 
   tags = {
     Name = each.key
   }
 
-  depends_on = [ aws_vpc.vpc ]
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_route_table" "public" {
   for_each = var.public_routes
-  vpc_id = each.value.vpc_id
-  
+  vpc_id   = each.value.vpc_id
+
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = each.value.igw_id
   }
 
-  tags =  {
-    Name = each.key
+  tags = {
+    Name        = each.key
     Description = "Public Subnet Route Table"
   }
 
-  depends_on = [ aws_vpc.vpc ]
+  depends_on = [aws_vpc.vpc]
+}
+
+resource "aws_route_table_association" "rta" {
+  for_each       = var.route_table_associations
+  subnet_id      = each.value.subnet_id
+  route_table_id = each.value.route_table_id
+
+  depends_on = [ aws_subnet.subnet ]
 }
