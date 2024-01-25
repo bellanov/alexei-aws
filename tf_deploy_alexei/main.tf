@@ -42,13 +42,13 @@ module "network" {
   subnets = local.subnets
 }
 
+module "security" {
+  source = "../modules/security"
+}
+
 module "application" {
   source = "../modules/application"
   aws_instances = local.aws_instances
-}
-
-module "security" {
-  source = "../modules/security"
 }
 
 # Locals
