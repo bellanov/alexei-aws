@@ -8,3 +8,8 @@ output "subnets" {
   description = "Private Subnets."
   value       = { for subnet in aws_subnet.subnet : subnet.tags.Name => tomap({ "id" = subnet.id, "cidr_block" = subnet.cidr_block, "vpc_id" = subnet.vpc_id }) }
 }
+
+output "internet_gateways" {
+  description = "Internet Gateways."
+  value       = { for igw in aws_internet_gateway.igw : igw.tags.Name => tomap({ "id" = igw.id, "vpc_id" = igw.vpc_id }) }
+}

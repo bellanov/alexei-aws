@@ -40,6 +40,7 @@ module "network" {
   source  = "../modules/network"
   vpcs    = local.vpcs
   subnets = local.subnets
+  internet_gateways = local.internet_gateways
 }
 
 module "security" {
@@ -101,6 +102,12 @@ locals {
   }
 
   public_subnets = {}
+
+  internet_gateways = {
+    "Web" : {
+      vpc_id : module.network.vpcs["Web VPC"].id
+    }
+  }
 
   aws_instances = {
     "Web Server 1" : {

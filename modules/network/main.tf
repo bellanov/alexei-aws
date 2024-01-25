@@ -21,3 +21,12 @@ resource "aws_subnet" "subnet" {
 
   depends_on = [ aws_vpc.vpc ]
 }
+
+resource "aws_internet_gateway" "igw" {
+  for_each = var.internet_gateways
+  vpc_id = each.value.vpc_id
+
+  tags = {
+    Name = each.key
+  }
+}
