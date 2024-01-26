@@ -66,7 +66,7 @@ locals {
   availability_zones = ["us-east-1a", "us-east-1b"]
 
   ami_ids = {
-    "us-east-1" : "ami-97785bed",
+    "us-east-1" : "ami-0a3c3a20c09d6f377",
     "us-west-2" : "ami-0fb83677"
   }
 
