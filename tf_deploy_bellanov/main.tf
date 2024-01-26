@@ -142,14 +142,14 @@ locals {
       "ami" : local.ami_ids["us-east-1"],
       "instance_type" : "t2.micro",
       "subnet_id" : module.network.subnets["Web Subnet 1"].id,
-      "user_data" : file("${path.module}/data/get_instance_id.sh"),
+      "user_data" : file("${path.module}/userdata/get_instance_id.sh"),
       "security_group_ids" : [aws_security_group.web_sg.id]
     },
     "Web Server 2" : {
       "ami" : local.ami_ids["us-east-1"],
       "instance_type" : "t2.micro",
       "subnet_id" : module.network.subnets["Web Subnet 2"].id,
-      "user_data" : file("${path.module}/data/get_instance_id.sh"),
+      "user_data" : file("${path.module}/userdata/get_instance_id.sh"),
       "security_group_ids" : [aws_security_group.web_sg.id]
     }
   }
