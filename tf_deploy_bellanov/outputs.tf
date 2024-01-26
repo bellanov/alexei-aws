@@ -19,6 +19,6 @@ output "security" {
   value       = module.security
 }
 
-# output "site_address" {
-#   value = "${aws_elb.web.dns_name}"
-# }
+output "site_address" {
+  value = aws_elb.web.dns_name
+}

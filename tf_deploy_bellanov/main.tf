@@ -208,26 +208,26 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-# resource "aws_elb" "web" {
-#   name = "web-elb"
-#   subnets = [ module.network.subnets["Public Subnet 1"].id, module.network.subnets["Public Subnet 2"].id ]
-#   security_groups = [aws_security_group.elb_sg.id]
-#   instances = [ module.application.aws_instances["Web Server 1"].id, module.application.aws_instances["Web Server 2"].id ]
+resource "aws_elb" "web" {
+  name = "web-elb"
+  subnets = [ module.network.subnets["Public Subnet 1"].id, module.network.subnets["Public Subnet 2"].id ]
+  security_groups = [aws_security_group.elb_sg.id]
+  instances = [ module.application.aws_instances["Web Server 1"].id, module.application.aws_instances["Web Server 2"].id ]
 
-#   # Listen for HTTP requests and distribute them to the instances
-#   listener { 
-#     instance_port     = 80
-#     instance_protocol = "http"
-#     lb_port           = 80
-#     lb_protocol       = "http"
-#   }
+  # Listen for HTTP requests and distribute them to the instances
+  listener { 
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
 
-#   # Check instance health every 10 seconds
-#   health_check {
-#     healthy_threshold = 2
-#     unhealthy_threshold = 2
-#     timeout = 3
-#     target = "HTTP:80/"
-#     interval = 10
-#   }
-# }
+  # Check instance health every 10 seconds
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    target = "HTTP:80/"
+    interval = 10
+  }
+}
