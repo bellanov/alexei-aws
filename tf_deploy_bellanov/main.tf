@@ -90,49 +90,49 @@ locals {
   }
 
   vpcs = {
-    "Bellanov VPC" : {
-      "name" : "Bellanov VPC",
-      "cidr_block" : "10.0.0.0/16"
-    },
-    "Aktos VPC" : {
-      "name" : "Aktos VPC",
-      "cidr_block" : "11.0.0.0/16"
-    },
-    "YSL VPC" : {
-      "name" : "YSL VPC",
-      "cidr_block" : "12.0.0.0/16"
-    },
-    "Louis Vuitton VPC" : {
-      "name" : "Louis Vuitton VPC",
-      "cidr_block" : "13.0.0.0/16"
-    },
-    "Victoria's Secret VPC" : {
-      "name" : "Victoria's Secret VPC",
-      "cidr_block" : "14.0.0.0/16"
-    }
+    # "Bellanov VPC" : {
+    #   "name" : "Bellanov VPC",
+    #   "cidr_block" : "10.0.0.0/16"
+    # },
+    # "Aktos VPC" : {
+    #   "name" : "Aktos VPC",
+    #   "cidr_block" : "11.0.0.0/16"
+    # },
+    # "YSL VPC" : {
+    #   "name" : "YSL VPC",
+    #   "cidr_block" : "12.0.0.0/16"
+    # },
+    # "Louis Vuitton VPC" : {
+    #   "name" : "Louis Vuitton VPC",
+    #   "cidr_block" : "13.0.0.0/16"
+    # },
+    # "Victoria's Secret VPC" : {
+    #   "name" : "Victoria's Secret VPC",
+    #   "cidr_block" : "14.0.0.0/16"
+    # }
   }
 
   subnets = {
     # "Bellanov - Public Subnet 1" : {
-    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
-    #   "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 2),
+    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 2),
     #   "availability_zone" : local.availability_zones[0]
     # },
     # "Bellanov - Public Subnet 2" : {
-    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
-    #   "cidr_block" : cidrsubnet(local.vpcs["Web VPC"].cidr_block, 2, 3),
+    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 3),
     #   "availability_zone" : local.availability_zones[1]
     # }
   }
 
   internet_gateways = {
-    # "Web IGW" : {
-    #   vpc_id : module.network.vpcs["Web VPC"].id
+    # "Bellanov IGW" : {
+    #   vpc_id : module.network.vpcs["Bellanov VPC"].id
     # }
   }
 
   public_routes = {
-    # "Web VPC" : {
+    # "Bellanov VPC" : {
     #   "vpc_id" : module.network.vpcs["Web VPC"].id,
     #   "igw_id" : module.network.internet_gateways["Web IGW"].id
     # }
