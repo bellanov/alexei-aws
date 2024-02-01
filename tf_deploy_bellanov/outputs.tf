@@ -19,6 +19,12 @@ output "security" {
   value       = module.security
 }
 
-# output "site_address" {
-#   value = aws_elb.web.dns_name
-# }
+output "policy" {
+  description = "Policy Module."
+  value       = module.policy
+}
+
+output "role" {
+  description = "Role Module."
+  value       = module.role
+}
