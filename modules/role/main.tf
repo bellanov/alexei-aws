@@ -48,7 +48,7 @@ resource "aws_iam_policy" "codebuild" {
   policy      = data.aws_iam_policy_document.codebuild.json
 }
 
-resource "aws_iam_role_policy_attachment" "codebuild-attach" {
+resource "aws_iam_role_policy_attachment" "codebuild" {
   role       = aws_iam_role.codebuild.name
   policy_arn = aws_iam_policy.codebuild.arn
 }
