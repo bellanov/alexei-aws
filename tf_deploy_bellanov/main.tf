@@ -49,10 +49,6 @@ module "security" {
   source = "../modules/security"
 }
 
-module "policy" {
-  source = "../modules/policy"
-}
-
 module "role" {
   source = "../modules/role"
 }
@@ -173,4 +169,3 @@ locals {
 #
 # Deploy things that were too annoying to put in a module.
 #================================================
-
