@@ -41,10 +41,21 @@ data "aws_iam_policy_document" "codebuild" {
   statement {
     effect    = "Allow"
     actions   = [
-        "s3:CreateBucket",
-        "s3:GetObject",
-        "s3:List*",
-        "s3:PutObject"
+      "s3:GetObject",
+      "s3:List*",
+      "s3:PutObject",
+      "s3:GetBucketAcl",
+      "s3:GetBucketLocation"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
     ]
     resources = ["*"]
   }
