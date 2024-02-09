@@ -12,17 +12,25 @@ data "aws_iam_policy_document" "assume_role_ec2" {
   }
 }
 
+data "aws_iam_policy_document" "assume_role_codebuild" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["codebuild.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
 resource "aws_iam_role" "codebuild" {
   name               = "codebuild"
-  assume_role_policy = data.aws_iam_policy_document.assume_role_ec2.json
+  assume_role_policy = data.aws_iam_policy_document.assume_role_codebuild.json
 }
 
 data "aws_iam_policy_document" "codebuild" {
-  statement {
-    effect    = "Allow"
-    actions   = ["ec2:Describe*"]
-    resources = ["*"]
-  }
 
   statement {
     effect    = "Allow"
