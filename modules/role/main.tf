@@ -53,6 +53,14 @@ data "aws_iam_policy_document" "codebuild" {
   statement {
     effect    = "Allow"
     actions   = [
+      "ecr:*",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = [
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents"
