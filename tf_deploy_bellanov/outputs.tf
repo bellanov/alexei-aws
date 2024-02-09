@@ -19,11 +19,6 @@ output "security" {
   value       = module.security
 }
 
-output "policy" {
-  description = "Policy Module."
-  value       = module.policy
-}
-
 output "role" {
   description = "Role Module."
   value       = module.role
