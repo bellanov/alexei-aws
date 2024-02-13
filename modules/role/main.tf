@@ -67,6 +67,14 @@ data "aws_iam_policy_document" "codebuild" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    effect    = "Allow"
+    actions   = [
+      "codestar-connections:UseConnection",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "codebuild" {

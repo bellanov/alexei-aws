@@ -76,6 +76,9 @@ locals {
 
   storage = {
     "buckets" : {
+      "codepipeline" : {
+        "description" : "CodePipeline Artifacts.",
+      },
       "testing" : {
         "description" : "Testing Results.",
       },
