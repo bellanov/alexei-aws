@@ -1,4 +1,8 @@
 
+# Assume Roles
+#
+# Define service roles to assume.
+#================================================
 data "aws_iam_policy_document" "assume_role_ec2" {
   statement {
     effect = "Allow"
@@ -25,6 +29,23 @@ data "aws_iam_policy_document" "assume_role_codebuild" {
   }
 }
 
+data "aws_iam_policy_document" "assume_role_codepipeline" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["codepipeline.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+# CodeBuild
+#
+# Define CodeBuild Roles.
+#================================================
 resource "aws_iam_role" "codebuild" {
   name               = "codebuild"
   assume_role_policy = data.aws_iam_policy_document.assume_role_codebuild.json
@@ -86,4 +107,24 @@ resource "aws_iam_policy" "codebuild" {
 resource "aws_iam_role_policy_attachment" "codebuild" {
   role       = aws_iam_role.codebuild.name
   policy_arn = aws_iam_policy.codebuild.arn
+}
+
+# CodePipeline
+#
+# Define CodePipeline Role.
+#================================================
+resource "aws_iam_role" "codepipeline" {
+  name               = "codepipeline"
+  assume_role_policy = data.aws_iam_policy_document.assume_role_codepipeline.json
+}
+
+resource "aws_iam_policy" "codepipeline" {
+  name        = "codepipeline-policy"
+  description = "CodePipeline IAM Policy."
+  policy      = data.aws_iam_policy_document.codebuild.json
+}
+
+resource "aws_iam_role_policy_attachment" "codepipeline" {
+  role       = aws_iam_role.codepipeline.name
+  policy_arn = aws_iam_policy.codepipeline.arn
 }
