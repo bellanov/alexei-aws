@@ -97,7 +97,7 @@ locals {
 
   build_config = {
     "artifacts_bucket" : module.storage.buckets["releases"].name,
-    "codebuild_service_role" : "arn:aws:iam::636334826710:role/codebuild"
+    "codebuild_service_role" : module.role.roles["codebuild"]
   }
 
   builds = {
