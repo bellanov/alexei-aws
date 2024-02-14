@@ -53,9 +53,12 @@ module "role" {
   source = "../modules/role"
 }
 
-# module "build" {
-#   source = "../modules/build"
-# }
+module "build" {
+  source = "../modules/build"
+  builds = local.builds
+  artifacts_bucket = local.build_config.artifacts_bucket
+  codebuild_service_role = local.build_config.codebuild_service_role
+}
 
 module "application" {
   source        = "../modules/application"
@@ -89,6 +92,18 @@ locals {
       "releases" : {
         "description" : "Build Artifacts.",
       }
+    }
+  }
+
+  build_config = {
+    "artifacts_bucket" : "artifacts-bucket",
+    "codebuild_service_role" : "arn:aws:iam::636334826710:role/codebuild"
+  }
+
+  builds = {
+    "react-template" : {
+      "description" : "Template for React development.",
+      "location" : "https://github.com/bellanov/react-template.git"
     }
   }
 
