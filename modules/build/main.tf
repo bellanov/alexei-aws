@@ -1,6 +1,6 @@
 
 resource "aws_codebuild_project" "build" {
-	for_each = var.builds
+  for_each       = var.builds
   name           = each.key
   description    = each.value.description
   build_timeout  = 10
@@ -8,15 +8,15 @@ resource "aws_codebuild_project" "build" {
 
   service_role = var.codebuild_service_role
 
-	source {
+  source {
     type            = "GITHUB"
     location        = each.value.location
-		buildspec           = "buildspec.yml"
+    buildspec       = "buildspec.yml"
     git_clone_depth = 1
 
-		git_submodules_config {
-			fetch_submodules = false
-		}
+    git_submodules_config {
+      fetch_submodules = false
+    }
   }
 
   artifacts {

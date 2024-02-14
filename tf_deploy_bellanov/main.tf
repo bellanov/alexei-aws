@@ -54,10 +54,12 @@ module "role" {
 }
 
 module "build" {
-  source = "../modules/build"
-  builds = local.builds
-  artifacts_bucket = local.build_config.artifacts_bucket
+  source                 = "../modules/build"
+  builds                 = local.builds
+  artifacts_bucket       = local.build_config.artifacts_bucket
   codebuild_service_role = local.build_config.codebuild_service_role
+
+  depends_on = [module.role, module.storage]
 }
 
 module "application" {
