@@ -53,6 +53,10 @@ module "role" {
   source = "../modules/role"
 }
 
+# module "build" {
+#   source = "../modules/build"
+# }
+
 module "application" {
   source        = "../modules/application"
   aws_instances = local.aws_instances
