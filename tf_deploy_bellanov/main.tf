@@ -96,7 +96,7 @@ locals {
   }
 
   build_config = {
-    "artifacts_bucket" : "artifacts-bucket",
+    "artifacts_bucket" : "artifact-bucket",
     "codebuild_service_role" : "arn:aws:iam::636334826710:role/codebuild"
   }
 
