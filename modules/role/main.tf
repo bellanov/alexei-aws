@@ -60,8 +60,8 @@ data "aws_iam_policy_document" "codebuild" {
   }
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "s3:GetObject",
       "s3:List*",
       "s3:PutObject",
@@ -72,16 +72,16 @@ data "aws_iam_policy_document" "codebuild" {
   }
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "ecr:*",
     ]
     resources = ["*"]
   }
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents"
@@ -90,8 +90,8 @@ data "aws_iam_policy_document" "codebuild" {
   }
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "codestar-connections:UseConnection",
     ]
     resources = ["*"]

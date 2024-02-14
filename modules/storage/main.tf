@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "s3" {
   bucket   = "${each.key}-${random_string.code.result}"
 
   tags = {
-    "Name" = each.key
+    "Name"        = each.key
     "Description" = each.value.description
   }
 }
