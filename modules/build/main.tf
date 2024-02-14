@@ -1,38 +1,40 @@
 
-# resource "aws_codebuild_project" "build" {
-#   name           = "test-codebuild-project"
-#   description    = "test_codebuild_project_cache"
-#   build_timeout  = 5
-#   queued_timeout = 5
+resource "aws_codebuild_project" "build" {
+	for_each = var.builds
+  name           = each.key
+  description    = each.value.description
+  build_timeout  = 10
+  queued_timeout = 10
 
-#   service_role = "arn:aws:iam::636334826710:role/codebuild"
+  service_role = var.codebuild_service_role
 
-#   artifacts {
-#     type = "NO_ARTIFACTS"
-#   }
+	source {
+    type            = "GITHUB"
+    location        = each.value.location
+		buildspec           = "buildspec.yml"
+    git_clone_depth = 1
 
-#   environment {
-#     compute_type                = "BUILD_GENERAL1_SMALL"
-#     image                       = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
-#     type                        = "LINUX_CONTAINER"
-#     image_pull_credentials_type = "CODEBUILD"
+		git_submodules_config {
+			fetch_submodules = false
+		}
+  }
 
-#     environment_variable {
-#       name  = "SOME_KEY1"
-#       value = "SOME_VALUE1"
-#     }
-#   }
+  artifacts {
+    type = "NO_ARTIFACTS"
+  }
 
-#   source {
-#     type            = "GITHUB"
-#     location        = "https://github.com/bellanov/react-template.git"
-#     git_clone_depth = 1
-#   }
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD"
 
-#   tags = {
-#     Environment = "Test"
-#   }
-# }
+    environment_variable {
+      name  = "ARTIFACTS_BUCKET"
+      value = var.artifacts_bucket
+    }
+  }
+}
 
 # resource "aws_codepipeline" "codepipeline" {
 #   name     = "tf-test-pipeline"
@@ -74,7 +76,7 @@
 #       version          = "1"
 
 #       configuration = {
-#         ProjectName = "test"
+#         ProjectName = "react-template"
 #       }
 #     }
 #   }

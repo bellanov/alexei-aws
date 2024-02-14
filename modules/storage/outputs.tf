@@ -1,7 +1,7 @@
 
 output "buckets" {
   description = "S3 Buckets."
-  value       = { for s3 in aws_s3_bucket.s3 : s3.bucket => s3.tags.Description }
+  value       = { for s3 in aws_s3_bucket.s3 : s3.bucket => tomap({ "name" = s3.bucket, "description" = s3.tags.Description }) }
 }
 
 # output "artifact_registry" {
