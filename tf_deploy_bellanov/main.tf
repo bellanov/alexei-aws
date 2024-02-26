@@ -110,73 +110,83 @@ locals {
   }
 
   vpcs = {
-    # "Bellanov VPC" : {
-    #   "name" : "Bellanov VPC",
-    #   "cidr_block" : "10.0.0.0/16"
-    # },
-    # "Aktos VPC" : {
-    #   "name" : "Aktos VPC",
-    #   "cidr_block" : "11.0.0.0/16"
-    # },
-    # "YSL VPC" : {
-    #   "name" : "YSL VPC",
-    #   "cidr_block" : "12.0.0.0/16"
-    # },
-    # "Louis Vuitton VPC" : {
-    #   "name" : "Louis Vuitton VPC",
-    #   "cidr_block" : "13.0.0.0/16"
-    # },
-    # "Victoria's Secret VPC" : {
-    #   "name" : "Victoria's Secret VPC",
-    #   "cidr_block" : "14.0.0.0/16"
-    # }
+    "Bellanov VPC" : {
+      "name" : "Bellanov VPC",
+      "cidr_block" : "10.0.0.0/16"
+    },
+    "Aktos VPC" : {
+      "name" : "Aktos VPC",
+      "cidr_block" : "11.0.0.0/16"
+    },
+    "YSL VPC" : {
+      "name" : "YSL VPC",
+      "cidr_block" : "12.0.0.0/16"
+    },
+    "Louis Vuitton VPC" : {
+      "name" : "Louis Vuitton VPC",
+      "cidr_block" : "13.0.0.0/16"
+    },
+    "Victoria's Secret VPC" : {
+      "name" : "Victoria's Secret VPC",
+      "cidr_block" : "14.0.0.0/16"
+    }
   }
 
   subnets = {
-    # "Bellanov - Public Subnet 1" : {
-    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
-    #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 2),
-    #   "availability_zone" : local.availability_zones[0]
-    # },
-    # "Bellanov - Public Subnet 2" : {
-    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
-    #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 3),
-    #   "availability_zone" : local.availability_zones[1]
-    # }
+    "Bellanov - Private Subnet 1" : {
+      "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+      "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 2),
+      "availability_zone" : local.availability_zones[0]
+    },
+    "Bellanov - Private Subnet 2" : {
+      "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+      "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 3),
+      "availability_zone" : local.availability_zones[1]
+    },
+    "Bellanov - Public Subnet 1" : {
+      "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+      "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 2),
+      "availability_zone" : local.availability_zones[0]
+    },
+    "Bellanov - Public Subnet 2" : {
+      "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+      "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 3),
+      "availability_zone" : local.availability_zones[1]
+    }
   }
 
   internet_gateways = {
-    # "Bellanov IGW" : {
-    #   vpc_id : module.network.vpcs["Bellanov VPC"].id
-    # }
+    "Bellanov IGW" : {
+      vpc_id : module.network.vpcs["Bellanov VPC"].id
+    }
   }
 
   public_routes = {
-    # "Bellanov VPC" : {
-    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
-    #   "igw_id" : module.network.internet_gateways["Web IGW"].id
-    # }
+    "Bellanov VPC" : {
+      "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+      "igw_id" : module.network.internet_gateways["Bellanov IGW"].id
+    }
   }
 
   route_table_associations = {
-    # "Public Subnet 1" : {
-    #   "subnet_id" : module.network.subnets["Public Subnet 1"].id,
-    #   "route_table_id" : module.network.public_routes["Web VPC"].id
-    # },
-    # "Public Subnet 2" : {
-    #   "subnet_id" : module.network.subnets["Public Subnet 2"].id,
-    #   "route_table_id" : module.network.public_routes["Web VPC"].id
-    # }
+    "Bellanov - Public Subnet 1" : {
+      "subnet_id" : module.network.subnets["Bellanov - Public Subnet 1"].id,
+      "route_table_id" : module.network.public_routes["Bellanov VPC"].id
+    },
+    "Bellanov - Public Subnet 2" : {
+      "subnet_id" : module.network.subnets["Bellanov - Public Subnet 2"].id,
+      "route_table_id" : module.network.public_routes["Bellanov VPC"].id
+    }
   }
 
   aws_instances = {
-    # "Web Server 1" : {
-    #   "ami" : local.ami_ids["us-east-1"],
-    #   "instance_type" : "t2.micro",
-    #   "subnet_id" : module.network.subnets["Web Subnet 1"].id,
-    #   "user_data" : file("get_instance_id.sh"),
-    #   "security_group_ids" : [aws_security_group.web_sg.id]
-    # }
+    "Web Server 1" : {
+      "ami" : local.ami_ids["us-east-1"],
+      "instance_type" : "t2.micro",
+      "subnet_id" : module.network.subnets["Bellanov - Public Subnet 1"].id,
+      "user_data" : file("./data/get_instance_id.sh"),
+      "security_group_ids": []
+    }
   }
 
   environments = {
