@@ -56,8 +56,8 @@ module "role" {
 module "build" {
   source                 = "../modules/build"
   builds                 = local.builds
-  artifacts_bucket       = local.build_config.artifacts_bucket
-  codebuild_service_role = local.build_config.codebuild_service_role
+  artifacts_bucket       = module.storage.buckets["releases"].name
+  codebuild_service_role = module.role.roles["codebuild"]
 
   depends_on = [module.role, module.storage]
 }
@@ -85,9 +85,6 @@ locals {
 
   storage = {
     "buckets" : {
-      "codepipeline" : {
-        "description" : "CodePipeline Artifacts.",
-      },
       "testing" : {
         "description" : "Testing Results.",
       },
@@ -133,6 +130,16 @@ locals {
   }
 
   subnets = {
+    # "Bellanov - Private Subnet 1" : {
+    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 2),
+    #   "availability_zone" : local.availability_zones[0]
+    # },
+    # "Bellanov - Private Subnet 2" : {
+    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+    #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 3),
+    #   "availability_zone" : local.availability_zones[1]
+    # },
     # "Bellanov - Public Subnet 1" : {
     #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
     #   "cidr_block" : cidrsubnet(local.vpcs["Bellanov VPC"].cidr_block, 2, 2),
@@ -153,19 +160,19 @@ locals {
 
   public_routes = {
     # "Bellanov VPC" : {
-    #   "vpc_id" : module.network.vpcs["Web VPC"].id,
-    #   "igw_id" : module.network.internet_gateways["Web IGW"].id
+    #   "vpc_id" : module.network.vpcs["Bellanov VPC"].id,
+    #   "igw_id" : module.network.internet_gateways["Bellanov IGW"].id
     # }
   }
 
   route_table_associations = {
-    # "Public Subnet 1" : {
-    #   "subnet_id" : module.network.subnets["Public Subnet 1"].id,
-    #   "route_table_id" : module.network.public_routes["Web VPC"].id
+    # "Bellanov - Public Subnet 1" : {
+    #   "subnet_id" : module.network.subnets["Bellanov - Public Subnet 1"].id,
+    #   "route_table_id" : module.network.public_routes["Bellanov VPC"].id
     # },
-    # "Public Subnet 2" : {
-    #   "subnet_id" : module.network.subnets["Public Subnet 2"].id,
-    #   "route_table_id" : module.network.public_routes["Web VPC"].id
+    # "Bellanov - Public Subnet 2" : {
+    #   "subnet_id" : module.network.subnets["Bellanov - Public Subnet 2"].id,
+    #   "route_table_id" : module.network.public_routes["Bellanov VPC"].id
     # }
   }
 
@@ -173,9 +180,9 @@ locals {
     # "Web Server 1" : {
     #   "ami" : local.ami_ids["us-east-1"],
     #   "instance_type" : "t2.micro",
-    #   "subnet_id" : module.network.subnets["Web Subnet 1"].id,
-    #   "user_data" : file("get_instance_id.sh"),
-    #   "security_group_ids" : [aws_security_group.web_sg.id]
+    #   "subnet_id" : module.network.subnets["Bellanov - Public Subnet 1"].id,
+    #   "user_data" : file("./data/get_instance_id.sh"),
+    #   "security_group_ids": []
     # }
   }
 

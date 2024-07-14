@@ -36,6 +36,12 @@ resource "aws_codebuild_project" "build" {
   }
 }
 
+# TODO: Import CodeStar Connection
+# resource "aws_codestarconnections_connection" "example" {
+#   name          = "example-connection"
+#   provider_type = "Bitbucket"
+# }
+
 # resource "aws_codepipeline" "codepipeline" {
 #   name     = "tf-test-pipeline"
 #   role_arn = "arn:aws:iam::636334826710:role/codebuild"
